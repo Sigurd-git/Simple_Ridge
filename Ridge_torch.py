@@ -49,8 +49,9 @@ class Ridge_nonlinear(nn.Module):
         outer_fold = KFold(n_splits=kfold, shuffle=False)
         alpha_range = np.logspace(alpha_range[0],alpha_range[1],kfold)
         result_dict = {'best_alphas':[],'best_scores':[],'y_pred':[],'coefs':[]}
-        best_score = 0
+        
         for train_val_index,test_index in outer_fold.split(X):
+            best_score = 0
             for iter,(train_index,val_index) in enumerate(inner_fold.split(X[train_val_index])):
                 X_train,X_val = X[train_index],X[val_index]
                 y_train,y_val = y[train_index],y[val_index]
